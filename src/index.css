@@ -1,0 +1,10 @@
+divIndex {
+     max-width: 600px; 
+    margin: 2rem auto; 
+    padding: 2rem; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
