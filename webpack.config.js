@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
   
   return {
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
       filename: isProduction ? '[name].[contenthash].js' : '[name].js',
       chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].js',
@@ -15,15 +15,18 @@ module.exports = (env, argv) => {
     },
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? 'source-map' : 'eval-source-map',    
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    },
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
             }
           }
         },
