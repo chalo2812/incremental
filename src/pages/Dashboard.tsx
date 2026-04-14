@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Topbar from "../components/Topbar/Topbar";
 import { fetchXlsAsJson } from "../utils/excel";
+import {
+  FiCalendar,
+  FiTag,
+  FiUserCheck,
+  FiShuffle,
+  FiAlertTriangle,
+  FiShield,
+  FiCheckCircle,
+  FiClock,
+} from "react-icons/fi";
 import "../styles/global.css";
 
 type TemplateData = {
@@ -22,6 +32,30 @@ type ExcelData = {
 };
 
 const defaultExcelUrl = "https://example.com/represa-datos.xlsx";
+
+const filterCards = [
+  { icon: FiCalendar, label: "Fecha Apertura", value: "Todos los períodos", tooltip: "Filtrar por periodo de apertura" },
+  { icon: FiTag, label: "Categoría Riesgo", value: "Operacional", tooltip: "Filtrar por categoría de riesgo" },
+  { icon: FiUserCheck, label: "Responsable", value: "Jefe de Obra", tooltip: "Seleccionar responsable" },
+  { icon: FiShuffle, label: "Tipo Respuesta", value: "Mitigar", tooltip: "Tipo de respuesta sugerida" },
+];
+
+const riskMatrixHeaders = ["Insignificante", "Menor", "Moderado", "Mayor", "Severo"];
+const riskMatrixRows = ["Raro", "Improbable", "Ocasional", "Probable", "Casi seguro"];
+const riskMatrixValues = [
+  [1, 1, 2, 3, 4],
+  [2, 2, 4, 6, 8],
+  [3, 3, 6, 9, 12],
+  [4, 4, 8, 12, 16],
+  [5, 5, 10, 15, 20],
+];
+
+const riskSummary = [
+  { label: "Riesgo Crítico", value: 24, color: "critical", icon: FiAlertTriangle },
+  { label: "Riesgo Alto", value: 44, color: "high", icon: FiShield },
+  { label: "Riesgo Medio", value: 15, color: "medium", icon: FiClock },
+  { label: "Riesgo Bajo", value: 0, color: "low", icon: FiCheckCircle },
+];
 
 const projectTemplates: Record<string, Record<string, TemplateData>> = {
   "Represa Alto Verde": {
@@ -255,90 +289,80 @@ export default function Dashboard({ username, onLogout }: DashboardProps) {
       <div className="dashboard-wrapper">
         <Sidebar onSectionChange={setActiveSection} activeSection={activeSection} />
         <main className="main-panel">
-          <div className={`excel-panel ${showExcelControls ? "expanded" : "collapsed"}`}>
-            <div className="excel-panel-header">
-              <div className="excel-title">Excel remoto</div>
-              <button
-                type="button"
-                className="excel-toggle"
-                onClick={() => setShowExcelControls((prev) => !prev)}
-              >
-                {showExcelControls ? "Cerrar" : "Cargar XLS"}
-              </button>
+          <div className="dashboard-overview">
+            <div>
+              <p className="dashboard-tag">Dashboard de Gestión de Riesgos</p>
+              <h1>Estado general de la obra</h1>
             </div>
-
-            {showExcelControls && (
-              <>
-                <div className="excel-controls">
-                  <input
-                    value={excelUrl}
-                    onChange={(e) => setExcelUrl(e.target.value)}
-                    placeholder="URL del archivo XLS/XLSX"
-                  />
-                  <button type="button" onClick={handleLoadExcel} disabled={loadingExcel}>
-                    {loadingExcel ? "Cargando..." : "Cargar Excel remoto"}
-                  </button>
-                </div>
-
-                <div className="excel-summary">
-                  <p>Url de origen: <strong>{excelUrl}</strong></p>
-                  {excelError && <p className="excel-error">{excelError}</p>}
-                  {excelData && (
-                    <div className="excel-sheet-selector">
-                      <span>Hoja:</span>
-                      <select
-                        className="project-selector"
-                        value={selectedSheetIndex}
-                        onChange={(e) => setSelectedSheetIndex(Number(e.target.value))}
-                      >
-                        {excelData.sheetNames.map((name, index) => (
-                          <option key={name} value={index}>
-                            {name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div>
-
-                {excelData && excelData.sheets[selectedSheetIndex] && (
-                  <div className="excel-table-wrap">
-                    <table className="excel-table">
-                      <thead>
-                        <tr>
-                          {Object.keys(excelData.sheets[selectedSheetIndex].rows[0] || {}).map((header) => (
-                            <th key={header}>{header}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {excelData.sheets[selectedSheetIndex].rows.slice(0, 6).map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {Object.keys(row).map((header) => (
-                              <td key={`${rowIndex}-${header}`}>{String(row[header] ?? "")}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <p className="excel-note">Vista previa de los primeros 6 registros.</p>
-                  </div>
-                )}
-              </>
-            )}
+            <div className="status-chip-row">
+              <button className="status-chip active">Abierto</button>
+              <button className="status-chip">Cerrado</button>
+              <button className="status-chip">En revisión</button>
+            </div>
           </div>
 
-          <div className="section-card">
-            <div className="section-header">
-              <h2>{activeTemplate.title}</h2>
-              <span className="status-badge">{activeTemplate.status}</span>
-            </div>
-            <p>{activeTemplate.description}</p>
-            <ul className="section-highlights">
-              {activeTemplate.highlights.map((item, index) => (
-                <li key={index}>{item}</li>
+          <div className="filters-grid">
+            {filterCards.map(({ icon: Icon, label, value, tooltip }) => (
+              <article key={label} className="filter-card" title={tooltip}>
+                <div className="filter-card-icon">
+                  <Icon />
+                </div>
+                <div>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="risk-layout">
+            <section className="risk-matrix-card">
+              <div className="risk-card-header">
+                <div>
+                  <p className="risk-card-title">Matriz de Riesgos</p>
+                  <p className="risk-card-subtitle">Probabilidad vs Impacto</p>
+                </div>
+              </div>
+
+              <div className="matrix-table-wrap">
+                <table className="matrix-table">
+                  <thead>
+                    <tr>
+                      <th>Probabilidad / Impacto</th>
+                      {riskMatrixHeaders.map((header) => (
+                        <th key={header}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {riskMatrixValues.map((row, rowIndex) => (
+                      <tr key={riskMatrixRows[rowIndex]}>
+                        <th>{riskMatrixRows[rowIndex]}</th>
+                        {row.map((value, colIndex) => (
+                          <td key={`${rowIndex}-${colIndex}`} className={`matrix-cell ${
+                            value >= 16 ? "cell-critical" : value >= 12 ? "cell-high" : value >= 6 ? "cell-medium" : "cell-low"
+                          }`}>
+                            {value}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <aside className="risk-summary-cards">
+              {riskSummary.map(({ label, value, color, icon: Icon }) => (
+                <article key={label} className={`risk-summary-card ${color}`}>
+                  <div className="risk-summary-header">
+                    <Icon />
+                    <span>{label}</span>
+                  </div>
+                  <div className="risk-summary-value">{value}</div>
+                </article>
               ))}
-            </ul>
+            </aside>
           </div>
         </main>
       </div>

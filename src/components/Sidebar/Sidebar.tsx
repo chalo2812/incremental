@@ -28,9 +28,11 @@ export default function Sidebar({ onSectionChange, activeSection }: SidebarProps
               key={sec.key}
               className={activeSection === sec.key ? "active" : ""}
               onClick={() => onSectionChange(sec.key)}
+              title={sec.label}
+              aria-label={sec.label}
             >
               <Icon className="sidebar-icon" />
-              {sec.label}
+              <span>{sec.label}</span>
             </li>
           );
         })}
