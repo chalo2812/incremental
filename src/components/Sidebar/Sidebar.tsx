@@ -19,7 +19,7 @@ const sections = [
 export default function Sidebar({ onSectionChange, activeSection }: SidebarProps) {
   return (
     <nav className="sidebar">
-      <h2>Proyecto X</h2>
+      <h2>Gestión de Obra</h2>
       <ul>
         {sections.map((sec) => {
           const Icon = sec.icon;

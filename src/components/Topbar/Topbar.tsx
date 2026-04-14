@@ -7,7 +7,7 @@ type TopbarProps = {
   onProjectChange: (project: string) => void;
 };
 
-const projects = ["Proyecto X", "Proyecto Aurora", "Proyecto Beta"];
+const projects = ["Represa Alto Verde", "Represa Laguna Azul", "Represa Boca del Río"];
 
 export default function Topbar({ project, onProjectChange }: TopbarProps) {
   return (
@@ -15,7 +15,7 @@ export default function Topbar({ project, onProjectChange }: TopbarProps) {
       <div className="topbar-left">
         <FiLayers className="topbar-icon" />
         <div>
-          <div className="topbar-title">Dashboard</div>
+          <div className="topbar-title">Gestión de Represas</div>
           <strong>{project}</strong>
         </div>
       </div>

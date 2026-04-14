@@ -11,189 +11,189 @@ type TemplateData = {
 };
 
 const projectTemplates: Record<string, Record<string, TemplateData>> = {
-  "Proyecto X": {
+  "Represa Alto Verde": {
     overview: {
-      title: "Resumen de Proyecto X",
-      description: "Análisis general del estado actual con métricas de avance y objetivos prioritarios.",
-      status: "En marcha",
+      title: "Resumen de Obra - Alto Verde",
+      description: "Control del avance en excavaciones, hormigonado y preparación de taludes para la represa.",
+      status: "Fase de terraplén",
       highlights: [
-        "Revisión semanal de entregables",
-        "Asegurar comunicación con el equipo",
-        "Priorizar hitos críticos"
+        "Revisión de volumetría de la presa",
+        "Control de calidad del hormigón",
+        "Coordinación con el equipo de geotecnia"
       ]
     },
     tasks: {
-      title: "Tareas de Proyecto X",
-      description: "Lista de acciones pendientes para el sprint actual y la planificación de entregas.",
-      status: "3 tareas urgentes",
+      title: "Tareas de Obra - Alto Verde",
+      description: "Checklist de tareas de construcción, seguridad y provisión de materiales para la represa.",
+      status: "4 tareas críticas",
       highlights: [
-        "Finalizar presentación de la fase 1",
-        "Verificar recursos de diseño",
-        "Asignar responsable para cada entrega"
+        "Garantizar suministro de áridos y cemento",
+        "Instalar drenajes de coronamiento",
+        "Supervisar montaje de encofrados"
       ]
     },
     members: {
-      title: "Miembros del equipo X",
-      description: "Equipo principal asignado a Proyecto X con roles y estado de disponibilidad.",
-      status: "5 colaboradores",
+      title: "Equipo de Obra - Alto Verde",
+      description: "Roles clave en ingeniería civil, medio ambiente y construcción de la represa.",
+      status: "7 profesionales activos",
       highlights: [
-        "Líder de proyecto: Ana",
-        "Desarrollador principal: Marco",
-        "Diseñadora UX: Laura"
+        "Jefe de Obra: Carlos",
+        "Ingeniero Civil: Sofía",
+        "Responsable HSE: Martín"
       ]
     },
     files: {
-      title: "Archivos asociados a Proyecto X",
-      description: "Documentos clave, prototipos y recursos compartidos para el equipo.",
-      status: "12 archivos activos",
+      title: "Documentación - Alto Verde",
+      description: "Planos estructurales, memoria de cálculo y permisos ambientales de la represa.",
+      status: "18 documentos vigentes",
       highlights: [
-        "Resumen ejecutivo",
-        "Plan de trabajo",
-        "Galería de prototipos"
+        "Informe geotécnico",
+        "Plan de gestión ambiental",
+        "Planos de alzado y secciones"
       ]
     },
     timeline: {
-      title: "Timeline de Proyecto X",
-      description: "Hitos próximos y fechas críticas para el seguimiento del avance.",
-      status: "2 checkpoints esta semana",
+      title: "Cronograma - Alto Verde",
+      description: "Fechas clave de desviación de cauce, armado de túneles y pruebas de compuertas.",
+      status: "2 hitos esta quincena",
       highlights: [
-        "Demo interna: Miércoles",
-        "Entrega parcial: Viernes",
-        "Revisión final: Próximo martes"
+        "Desvío de río: 10 de mayo",
+        "Hormigonado cúpula: 18 de mayo",
+        "Prueba de hermeticidad: 30 de mayo"
       ]
     },
     settings: {
-      title: "Configuración de Proyecto X",
-      description: "Ajustes del proyecto, permisos y opciones de personalización.",
-      status: "Ajustes disponibles",
+      title: "Ajustes de Obra - Alto Verde",
+      description: "Configuración de permisos, seguridad en obra y controles de gestión para la represa.",
+      status: "Revisión de protocolos",
       highlights: [
-        "Control de accesos",
-        "Notificaciones activadas",
-        "Plantillas de reporte"
+        "Inspección HSE programada",
+        "Actualización de seguros",
+        "Control de accesos de contratistas"
       ]
     }
   },
-  "Proyecto Aurora": {
+  "Represa Laguna Azul": {
     overview: {
-      title: "Resumen de Proyecto Aurora",
-      description: "Estado del proyecto orientado a innovación y diseño de experiencias.",
-      status: "Preparación",
+      title: "Resumen de Obra - Laguna Azul",
+      description: "Seguimiento del avance de pilotes, estructuras de contención y cámaras de servicio.",
+      status: "Etapa de pilotes",
       highlights: [
-        "Reunión de kick-off completada",
-        "Propuesta de alcance validada",
-        "Definir roadmap de diseño"
+        "Monitoreo de asentamientos",
+        "Control de calidad en pilotes",
+        "Revisión de obras provisionales"
       ]
     },
     tasks: {
-      title: "Tareas de Proyecto Aurora",
-      description: "Acciones clave para la fase de descubrimiento y validación.",
-      status: "5 tareas abiertas",
+      title: "Tareas de Obra - Laguna Azul",
+      description: "Asignación de actividades para hormigonado, tendido de tuberías y geotecnia.",
+      status: "6 tareas abiertas",
       highlights: [
-        "Investigar usuarios",
-        "Prototipar flujo principal",
-        "Revisar feedback con stakeholders"
+        "Finalizar pilotes de fundación",
+        "Instalar cámaras de drenaje",
+        "Revisar plan de desvío temporal"
       ]
     },
     members: {
-      title: "Miembros del equipo Aurora",
-      description: "Participantes activos en la etapa de diseño y pruebas.",
-      status: "Equipo multidisciplinario",
+      title: "Equipo de Obra - Laguna Azul",
+      description: "Integrantes responsables de ejecución, topografía y coordinación de contratistas.",
+      status: "8 integrantes activos",
       highlights: [
-        "Investigadora: Marta",
-        "Product Owner: Leo",
-        "Frontend: Carla"
+        "Topógrafo: Elena",
+        "Jefe de hydraulica: Pedro",
+        "Coordinador de contratistas: Juana"
       ]
     },
     files: {
-      title: "Archivos de Proyecto Aurora",
-      description: "Recursos y entregables de diseño que guían el proyecto.",
-      status: "6 documentos clave",
+      title: "Documentación - Laguna Azul",
+      description: "Registros de ensayos, certificados de materiales y autorizaciones de cuenca.",
+      status: "14 archivos críticos",
       highlights: [
-        "Mapa de experiencia",
-        "Wireframes iniciales",
-        "Reporte de hallazgos"
+        "Certificados de hormigón",
+        "Memoria de cálculo hidráulico",
+        "Permiso de uso de agua"
       ]
     },
     timeline: {
-      title: "Timeline de Proyecto Aurora",
-      description: "Etapas previstas para validar el producto y preparar la versión piloto.",
-      status: "En planificación",
+      title: "Cronograma - Laguna Azul",
+      description: "Avances planificados para obras de desvío, pilotes y montaje de estructuras.",
+      status: "Entregas semanales",
       highlights: [
-        "Validación de prototipo: jueves",
-        "Ajustes de UX: próxima semana",
-        "Presentación interna: 20 de abril"
+        "Final de pilotes: 22 de mayo",
+        "Montaje de compuertas: 5 de junio",
+        "Inspección ambiental: 12 de junio"
       ]
     },
     settings: {
-      title: "Configuración de Proyecto Aurora",
-      description: "Preferencias específicas para el seguimiento de este proyecto.",
-      status: "Opciones listas",
+      title: "Ajustes de Obra - Laguna Azul",
+      description: "Configuración de acceso a obra, seguridad y protocolos de control de calidad.",
+      status: "Protocolos activos",
       highlights: [
-        "Definir responsables",
-        "Ajustar notificaciones",
-        "Sincronizar con calendario"
+        "Checklists de seguridad actualizados",
+        "Autorización de pruebas de carga",
+        "Plan de contingencia hídrica"
       ]
     }
   },
-  "Proyecto Beta": {
+  "Represa Boca del Río": {
     overview: {
-      title: "Resumen de Proyecto Beta",
-      description: "Visión rápida del plan de lanzamiento y pruebas de la versión Beta.",
-      status: "En revisión",
+      title: "Resumen de Obra - Boca del Río",
+      description: "Evaluación de progreso en excavaciones, muros de contención y estructuras hidráulicas.",
+      status: "Fase de muros",
       highlights: [
-        "Fase de QA en curso",
-        "Recolección de feedback",
-        "Ajustes de última hora"
+        "Monitoreo de estabilidad de taludes",
+        "Revisión de calidad de material compactado",
+        "Control de flujo en el canal de desvío"
       ]
     },
     tasks: {
-      title: "Tareas de Proyecto Beta",
-      description: "Actividades pendientes relacionadas con pruebas y documentación.",
-      status: "7 tareas en cola",
+      title: "Tareas de Obra - Boca del Río",
+      description: "Puntos de acción para el avance de estructuras, control ambiental y seguridad.",
+      status: "5 tareas prioritarias",
       highlights: [
-        "Corregir bugs críticos",
-        "Actualizar documentación",
-        "Realizar pruebas de usuario"
+        "Ejecutar sellado de juntas",
+        "Verificar anclajes de muros",
+        "Actualizar bitácora de obra"
       ]
     },
     members: {
-      title: "Miembros de Proyecto Beta",
-      description: "Equipo de implementación y control de calidad.",
-      status: "4 miembros activos",
+      title: "Equipo de Obra - Boca del Río",
+      description: "Responsables de obra, ingeniera estructural y supervisión de seguridad.",
+      status: "6 profesionales en obra",
       highlights: [
-        "QA Lead: Diego",
-        "Backend: Isabel",
-        "Frontend: Paula"
+        "Jefa de Obra: Lucía",
+        "Ingeniero Estructural: Javier",
+        "Supervisor de Seguridad: Andrés"
       ]
     },
     files: {
-      title: "Archivos de Proyecto Beta",
-      description: "Versiones de prueba, reportes y guías internas.",
-      status: "8 archivos actualizados",
+      title: "Documentación - Boca del Río",
+      description: "Informes de avance, planos ejecutivos y permisos de impacto ambiental.",
+      status: "20 documentos activos",
       highlights: [
-        "Checklist de pruebas",
-        "Reporte de errores",
-        "Guía de despliegue"
+        "Plan de gestión de taludes",
+        "Informe de ensayos de suelo",
+        "Permiso de vertido controlado"
       ]
     },
     timeline: {
-      title: "Timeline de Proyecto Beta",
-      description: "Calendario de pruebas y fechas de revisión para la fase Beta.",
-      status: "Semanal",
+      title: "Cronograma - Boca del Río",
+      description: "Fechas clave para finalizar estructuras y comenzar las pruebas hidráulicas.",
+      status: "3 hitos en el próximo mes",
       highlights: [
-        "Sesión de prueba: lunes",
-        "Análisis de resultados: jueves",
-        "Ajustes finales: viernes"
+        "Cierre de compuertas: 8 de junio",
+        "Prueba de estanqueidad: 15 de junio",
+        "Evaluación final: 24 de junio"
       ]
     },
     settings: {
-      title: "Configuración de Proyecto Beta",
-      description: "Ajustes de seguimiento, permisos y estado de pruebas.",
-      status: "Requiere revisión",
+      title: "Ajustes de Obra - Boca del Río",
+      description: "Configuración de permisos, controles y seguridad asociados a la represa.",
+      status: "Inspección en curso",
       highlights: [
-        "Permisos de acceso",
-        "Alertas configuradas",
-        "Sincronización de tareas"
+        "Actualización de protocolos de seguridad",
+        "Revisión de permisos de explotación",
+        "Coordinación de logística de materiales"
       ]
     }
   }
@@ -201,7 +201,7 @@ const projectTemplates: Record<string, Record<string, TemplateData>> = {
 
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("overview");
-  const [project, setProject] = useState("Proyecto X");
+  const [project, setProject] = useState("Represa Alto Verde");
   const activeTemplate = projectTemplates[project][activeSection];
 
   return (
