@@ -212,7 +212,12 @@ const projectTemplates: Record<string, Record<string, TemplateData>> = {
   }
 };
 
-export default function Dashboard() {
+type DashboardProps = {
+  username: string;
+  onLogout: () => void;
+};
+
+export default function Dashboard({ username, onLogout }: DashboardProps) {
   const [activeSection, setActiveSection] = useState("overview");
   const [project, setProject] = useState("Represa Alto Verde");
   const [excelUrl, setExcelUrl] = useState(defaultExcelUrl);
@@ -241,7 +246,12 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-root">
-      <Topbar project={project} onProjectChange={setProject} />
+      <Topbar
+        project={project}
+        onProjectChange={setProject}
+        username={username}
+        onLogout={onLogout}
+      />
       <div className="dashboard-wrapper">
         <Sidebar onSectionChange={setActiveSection} activeSection={activeSection} />
         <main className="main-panel">

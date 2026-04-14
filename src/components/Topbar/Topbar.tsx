@@ -5,11 +5,13 @@ import "./Topbar.css";
 type TopbarProps = {
   project: string;
   onProjectChange: (project: string) => void;
+  username: string;
+  onLogout: () => void;
 };
 
 const projects = ["Represa Alto Verde", "Represa Laguna Azul", "Represa Boca del Río"];
 
-export default function Topbar({ project, onProjectChange }: TopbarProps) {
+export default function Topbar({ project, onProjectChange, username, onLogout }: TopbarProps) {
   return (
     <header className="topbar">
       <div className="topbar-left">
@@ -32,8 +34,11 @@ export default function Topbar({ project, onProjectChange }: TopbarProps) {
           ))}
         </select>
         <div className="user-info">
-          <FiUser className="user-icon" /> Usuario
+          <FiUser className="user-icon" /> {username}
         </div>
+        <button type="button" className="logout-button" onClick={onLogout}>
+          Cerrar sesión
+        </button>
       </div>
     </header>
   );

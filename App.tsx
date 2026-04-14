@@ -1,13 +1,23 @@
+import React, { useState } from "react";
+import Login from "./src/components/Login/Login";
+import Dashboard from "./src/pages/Dashboard";
+
 function App() {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
-      <div style={{ maxWidth: 720, textAlign: 'center' }}>
-        <h1 style={{ color: 'blue' }}>🚀 Proyecto por Vercel Evolutivo Activo</h1>
-        <p>Webpack configurado correctamente con React y TypeScript</p>
-        <p><small>Listo para desarrollo evolutivo en Vercel</small></p>
-      </div>
-    </div>
-  )
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  function handleLogin(username: string) {
+    setCurrentUser(username);
+  }
+
+  function handleLogout() {
+    setCurrentUser(null);
+  }
+
+  return currentUser ? (
+    <Dashboard username={currentUser} onLogout={handleLogout} />
+  ) : (
+    <Login onLogin={handleLogin} />
+  );
 }
 
 export default App
