@@ -220,6 +220,7 @@ export default function Dashboard() {
   const [selectedSheetIndex, setSelectedSheetIndex] = useState(0);
   const [loadingExcel, setLoadingExcel] = useState(false);
   const [excelError, setExcelError] = useState("");
+  const [showExcelControls, setShowExcelControls] = useState(false);
   const activeTemplate = projectTemplates[project][activeSection];
 
   async function handleLoadExcel() {
@@ -244,61 +245,76 @@ export default function Dashboard() {
       <div className="dashboard-wrapper">
         <Sidebar onSectionChange={setActiveSection} activeSection={activeSection} />
         <main className="main-panel">
-          <div className="excel-panel">
-            <div className="excel-controls">
-              <input
-                value={excelUrl}
-                onChange={(e) => setExcelUrl(e.target.value)}
-                placeholder="URL del archivo XLS/XLSX"
-              />
-              <button type="button" onClick={handleLoadExcel} disabled={loadingExcel}>
-                {loadingExcel ? "Cargando..." : "Cargar Excel remoto"}
+          <div className={`excel-panel ${showExcelControls ? "expanded" : "collapsed"}`}>
+            <div className="excel-panel-header">
+              <div className="excel-title">Excel remoto</div>
+              <button
+                type="button"
+                className="excel-toggle"
+                onClick={() => setShowExcelControls((prev) => !prev)}
+              >
+                {showExcelControls ? "Cerrar" : "Cargar XLS"}
               </button>
             </div>
 
-            <div className="excel-summary">
-              <p>Url de origen: <strong>{excelUrl}</strong></p>
-              {excelError && <p className="excel-error">{excelError}</p>}
-              {excelData && (
-                <div className="excel-sheet-selector">
-                  <span>Hoja:</span>
-                  <select
-                    className="project-selector"
-                    value={selectedSheetIndex}
-                    onChange={(e) => setSelectedSheetIndex(Number(e.target.value))}
-                  >
-                    {excelData.sheetNames.map((name, index) => (
-                      <option key={name} value={index}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
+            {showExcelControls && (
+              <>
+                <div className="excel-controls">
+                  <input
+                    value={excelUrl}
+                    onChange={(e) => setExcelUrl(e.target.value)}
+                    placeholder="URL del archivo XLS/XLSX"
+                  />
+                  <button type="button" onClick={handleLoadExcel} disabled={loadingExcel}>
+                    {loadingExcel ? "Cargando..." : "Cargar Excel remoto"}
+                  </button>
                 </div>
-              )}
-            </div>
 
-            {excelData && excelData.sheets[selectedSheetIndex] && (
-              <div className="excel-table-wrap">
-                <table className="excel-table">
-                  <thead>
-                    <tr>
-                      {Object.keys(excelData.sheets[selectedSheetIndex].rows[0] || {}).map((header) => (
-                        <th key={header}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {excelData.sheets[selectedSheetIndex].rows.slice(0, 6).map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Object.keys(row).map((header) => (
-                          <td key={`${rowIndex}-${header}`}>{String(row[header] ?? "")}</td>
+                <div className="excel-summary">
+                  <p>Url de origen: <strong>{excelUrl}</strong></p>
+                  {excelError && <p className="excel-error">{excelError}</p>}
+                  {excelData && (
+                    <div className="excel-sheet-selector">
+                      <span>Hoja:</span>
+                      <select
+                        className="project-selector"
+                        value={selectedSheetIndex}
+                        onChange={(e) => setSelectedSheetIndex(Number(e.target.value))}
+                      >
+                        {excelData.sheetNames.map((name, index) => (
+                          <option key={name} value={index}>
+                            {name}
+                          </option>
                         ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="excel-note">Vista previa de los primeros 6 registros.</p>
-              </div>
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                {excelData && excelData.sheets[selectedSheetIndex] && (
+                  <div className="excel-table-wrap">
+                    <table className="excel-table">
+                      <thead>
+                        <tr>
+                          {Object.keys(excelData.sheets[selectedSheetIndex].rows[0] || {}).map((header) => (
+                            <th key={header}>{header}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {excelData.sheets[selectedSheetIndex].rows.slice(0, 6).map((row, rowIndex) => (
+                          <tr key={rowIndex}>
+                            {Object.keys(row).map((header) => (
+                              <td key={`${rowIndex}-${header}`}>{String(row[header] ?? "")}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="excel-note">Vista previa de los primeros 6 registros.</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
