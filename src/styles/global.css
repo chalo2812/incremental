@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f5f6fa;
+}
+.dashboard-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f6fa;
+}
+.dashboard-wrapper {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.main-panel {
+  flex: 1;
+  padding: 2rem;
+  background: #fff;
+  min-height: calc(100vh - 60px);
+  overflow-y: auto;
+  border-radius: 10px;
+  margin: 1.5rem;
+  box-shadow: 0 6px 24px 0 #0001;
+}
+@media (max-width: 750px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    min-width: 100%;
+    min-height: unset;
+    padding: 1rem;
+  }
+  .main-panel {
+    margin: .5rem;
+    padding: .5rem;
+  }
+}

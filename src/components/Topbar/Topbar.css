@@ -1,0 +1,14 @@
+.topbar {
+  background: #20253a;
+  color: #fff;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-shadow: 0 2px 6px 0 #0002;
+}
+.topbar .user-info {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}

@@ -1,0 +1,27 @@
+.sidebar {
+  background: #262c3a;
+  color: #fff;
+  min-width: 200px;
+  min-height: 100vh;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+}
+.sidebar h2 {
+  margin: 0 0 2rem 0;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+.sidebar li.active, .sidebar li:hover {
+  background: #394058;
+}
