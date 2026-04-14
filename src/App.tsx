@@ -1,3 +1,5 @@
+import { SpeedInsights } from '@vercel/speed-insights/react'
+
 function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
@@ -6,6 +8,7 @@ function App() {
         <p>Webpack configurado correctamente con React y TypeScript</p>
         <p><small>Listo para desarrollo evolutivo en Vercel</small></p>
       </div>
+      <SpeedInsights />
     </div>
   )
 }
