@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Topbar from "../components/Topbar/Topbar";
+import { fetchXlsAsJson } from "../utils/excel";
 import "../styles/global.css";
 
 type TemplateData = {
@@ -9,6 +10,18 @@ type TemplateData = {
   status: string;
   highlights: string[];
 };
+
+type SheetData = {
+  name: string;
+  rows: Record<string, unknown>[];
+};
+
+type ExcelData = {
+  sheetNames: string[];
+  sheets: SheetData[];
+};
+
+const defaultExcelUrl = "https://example.com/represa-datos.xlsx";
 
 const projectTemplates: Record<string, Record<string, TemplateData>> = {
   "Represa Alto Verde": {
@@ -202,7 +215,28 @@ const projectTemplates: Record<string, Record<string, TemplateData>> = {
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("overview");
   const [project, setProject] = useState("Represa Alto Verde");
+  const [excelUrl, setExcelUrl] = useState(defaultExcelUrl);
+  const [excelData, setExcelData] = useState<ExcelData | null>(null);
+  const [selectedSheetIndex, setSelectedSheetIndex] = useState(0);
+  const [loadingExcel, setLoadingExcel] = useState(false);
+  const [excelError, setExcelError] = useState("");
   const activeTemplate = projectTemplates[project][activeSection];
+
+  async function handleLoadExcel() {
+    setLoadingExcel(true);
+    setExcelError("");
+
+    try {
+      const data = await fetchXlsAsJson(excelUrl);
+      setExcelData(data);
+      setSelectedSheetIndex(0);
+    } catch (error: unknown) {
+      setExcelError(error instanceof Error ? error.message : "Error cargando Excel");
+      setExcelData(null);
+    } finally {
+      setLoadingExcel(false);
+    }
+  }
 
   return (
     <div className="dashboard-root">
@@ -210,6 +244,64 @@ export default function Dashboard() {
       <div className="dashboard-wrapper">
         <Sidebar onSectionChange={setActiveSection} activeSection={activeSection} />
         <main className="main-panel">
+          <div className="excel-panel">
+            <div className="excel-controls">
+              <input
+                value={excelUrl}
+                onChange={(e) => setExcelUrl(e.target.value)}
+                placeholder="URL del archivo XLS/XLSX"
+              />
+              <button type="button" onClick={handleLoadExcel} disabled={loadingExcel}>
+                {loadingExcel ? "Cargando..." : "Cargar Excel remoto"}
+              </button>
+            </div>
+
+            <div className="excel-summary">
+              <p>Url de origen: <strong>{excelUrl}</strong></p>
+              {excelError && <p className="excel-error">{excelError}</p>}
+              {excelData && (
+                <div className="excel-sheet-selector">
+                  <span>Hoja:</span>
+                  <select
+                    className="project-selector"
+                    value={selectedSheetIndex}
+                    onChange={(e) => setSelectedSheetIndex(Number(e.target.value))}
+                  >
+                    {excelData.sheetNames.map((name, index) => (
+                      <option key={name} value={index}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+
+            {excelData && excelData.sheets[selectedSheetIndex] && (
+              <div className="excel-table-wrap">
+                <table className="excel-table">
+                  <thead>
+                    <tr>
+                      {Object.keys(excelData.sheets[selectedSheetIndex].rows[0] || {}).map((header) => (
+                        <th key={header}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {excelData.sheets[selectedSheetIndex].rows.slice(0, 6).map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Object.keys(row).map((header) => (
+                          <td key={`${rowIndex}-${header}`}>{String(row[header] ?? "")}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="excel-note">Vista previa de los primeros 6 registros.</p>
+              </div>
+            )}
+          </div>
+
           <div className="section-card">
             <div className="section-header">
               <h2>{activeTemplate.title}</h2>
