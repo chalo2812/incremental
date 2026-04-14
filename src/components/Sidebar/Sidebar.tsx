@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 
-export default function Sidebar({ onSectionChange, activeSection }) {
+export default function Sidebar({ onSectionChange, activeSection }: SidebarProps) {
   const sections = [
     { key: "overview", label: "Resumen" },
     { key: "tasks", label: "Tareas" },
