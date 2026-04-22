@@ -251,7 +251,9 @@ type DashboardProps = {
   onLogout: () => void;
 };
 
-export default function Dashboard({ username, onLogout }: DashboardProps) {
+type DashboardPropsExt = DashboardProps & { sessionTimeoutMinutes?: number };
+
+export default function Dashboard({ username, onLogout, sessionTimeoutMinutes = 5 }: DashboardPropsExt) {
   const [activeSection, setActiveSection] = useState("overview");
   const [project, setProject] = useState("Represa Alto Verde");
   const [excelUrl, setExcelUrl] = useState(defaultExcelUrl);
@@ -260,9 +262,27 @@ export default function Dashboard({ username, onLogout }: DashboardProps) {
   const [loadingExcel, setLoadingExcel] = useState(false);
   const [excelError, setExcelError] = useState("");
   const [showExcelControls, setShowExcelControls] = useState(false);
+  const [lastActivity, setLastActivity] = useState(Date.now());
   const activeTemplate = projectTemplates[project][activeSection];
 
+  // Sesión: efecto y reset
+  React.useEffect(() => {
+    const timeoutMs = sessionTimeoutMinutes * 60 * 1000;
+    const timer = setTimeout(() => {
+      alert('Sesión cerrada por inactividad');
+      onLogout();
+    }, timeoutMs);
+    return () => clearTimeout(timer);
+  }, [lastActivity, sessionTimeoutMinutes, onLogout]);
+
+  // Resetear timer manualmente cuando llames a la BD
+  function resetSessionTimeout() {
+    setLastActivity(Date.now());
+  }
+
+  // Uso demo: llama resetSessionTimeout en cada consulta a la BD
   async function handleLoadExcel() {
+    resetSessionTimeout();
     setLoadingExcel(true);
     setExcelError("");
 
