@@ -46,12 +46,12 @@ export default function SectionPage({ section, template }: SectionPageProps) {
       </div>
 
       {useTable ? (
-        <div className="section-card-dark section-card-table">
+        <div className="section-card section-card-table">
           <div className="section-card-header">
             <Icon className="section-card-icon" />
             <h3>Detalles de {label}</h3>
           </div>
-          <table className="dark-table">
+          <table className="section-table">
             <thead>
               <tr>
                 <th>#</th>
@@ -61,7 +61,7 @@ export default function SectionPage({ section, template }: SectionPageProps) {
             <tbody>
               {template.highlights.map((item, index) => (
                 <tr key={index}>
-                  <td className="dark-table-idx">{index + 1}</td>
+                  <td className="section-table-idx">{index + 1}</td>
                   <td>{item}</td>
                 </tr>
               ))}
@@ -69,12 +69,12 @@ export default function SectionPage({ section, template }: SectionPageProps) {
           </table>
         </div>
       ) : (
-        <div className="section-card-dark">
+        <div className="section-card">
           <div className="section-card-header">
             <Icon className="section-card-icon" />
             <h3>Detalles de {label}</h3>
           </div>
-          <ul className="section-highlights-dark">
+          <ul className="section-highlights">
             {template.highlights.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
