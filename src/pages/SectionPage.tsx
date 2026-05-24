@@ -25,9 +25,12 @@ const sectionLabels: Record<string, string> = {
   settings: "Configuración",
 };
 
+const tableSections = new Set(["tasks", "members"]);
+
 export default function SectionPage({ section, template }: SectionPageProps) {
   const Icon = sectionIcons[section] || FiSettings;
   const label = sectionLabels[section] || section;
+  const useTable = tableSections.has(section);
 
   return (
     <div className="section-page">
@@ -42,17 +45,42 @@ export default function SectionPage({ section, template }: SectionPageProps) {
         <span className="status-badge">{template.status}</span>
       </div>
 
-      <div className="section-card">
-        <div className="section-card-header">
-          <FiCheckSquare className="section-card-icon" />
-          <h3>Detalles de {label}</h3>
+      {useTable ? (
+        <div className="section-card-dark section-card-table">
+          <div className="section-card-header">
+            <Icon className="section-card-icon" />
+            <h3>Detalles de {label}</h3>
+          </div>
+          <table className="dark-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Elemento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {template.highlights.map((item, index) => (
+                <tr key={index}>
+                  <td className="dark-table-idx">{index + 1}</td>
+                  <td>{item}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <ul className="section-highlights">
-          {template.highlights.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      </div>
+      ) : (
+        <div className="section-card-dark">
+          <div className="section-card-header">
+            <Icon className="section-card-icon" />
+            <h3>Detalles de {label}</h3>
+          </div>
+          <ul className="section-highlights-dark">
+            {template.highlights.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
