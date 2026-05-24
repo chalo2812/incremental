@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { supabase } from "./utils/supabaseClient";
-import Dashboard from "./pages/Dashboard";
+import React, { useState } from "react";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+type User = string | null;
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<User>(null);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(data?.session?.user || null);
-    });
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  if (!user) {
-    return <Login onLogin={() => window.location.reload()} />;
+  function handleLogin(username: string) {
+    setCurrentUser(username);
   }
 
-  return <Dashboard />;
+  function handleLogout() {
+    setCurrentUser(null);
+  }
+
+  return currentUser ? (
+    <Dashboard username={currentUser} onLogout={handleLogout} />
+  ) : (
+    <Login onLogin={handleLogin} />
+  );
 }
 
 export default App;
